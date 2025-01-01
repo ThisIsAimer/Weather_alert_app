@@ -1,11 +1,15 @@
 import cv2
 import time
+import email
 
 video = cv2.VideoCapture(1) #captures main camera with 0 and external and virtual camera with 1
 
 first_frame = None
 
+status_list = [0]
+
 while True:
+    status = 0
     check,frame = video.read()
 
     grey_frame = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
@@ -30,7 +34,17 @@ while True:
             continue
 
         x,y,w,h = cv2.boundingRect(contour)
-        cv2.rectangle(frame,(x,y),(x+w,y+h), (0,225,0))
+        rectangle = cv2.rectangle(frame,(x,y),(x+w,y+h), (0,225,0))
+        if rectangle.any():
+            status = 1
+
+    status_list.append(status)
+    status_list = status_list[-2:]
+
+    print(status_list)
+
+    if status_list[0] == 0 and status_list[1] == 1:
+        email.email_send()
 
     cv2.imshow("My video", frame)
 
