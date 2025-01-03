@@ -1,5 +1,6 @@
 import smtplib,ssl,Important
 from email.message import EmailMessage
+# this code doesnt work as "imghdr" was removed from python 3.13..
 
 
 
