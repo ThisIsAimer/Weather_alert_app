@@ -1,6 +1,6 @@
 import cv2
 import time,glob
-import email
+import send_mail
 
 video = cv2.VideoCapture(1) #captures main camera with 0 and external and virtual camera with 1
 
@@ -51,7 +51,7 @@ while True:
     print(status_list)
 
     if status_list[0] == 0 and status_list[1] == 1:
-        email.email_send()
+        send_mail.send_mail("")
 
     cv2.imshow("My video", frame)
 
