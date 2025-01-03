@@ -1,6 +1,11 @@
 import cv2
-import time,glob
+import time,glob,os
 import send_mail
+
+def clean_folder():
+    images = glob.glob("images/*.png")
+    for image in images:
+        os.remove(image)
 
 video = cv2.VideoCapture(1) #captures main camera with 0 and external and virtual camera with 1
 
@@ -50,8 +55,10 @@ while True:
 
     print(status_list)
 
-    if status_list[0] == 0 and status_list[1] == 1:
-        send_mail.send_mail("")
+    if status_list[0] == 1 and status_list[1] == 0:
+        send_mail.send_mail(avg_img_w_obj)
+        clean_folder()
+
 
     cv2.imshow("My video", frame)
 
