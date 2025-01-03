@@ -38,4 +38,7 @@ import numpy
 # print(check)
 
 
-print(1 % 2 ==0)
+i = 0
+while i < 10:
+    i += 1
+    print(i)

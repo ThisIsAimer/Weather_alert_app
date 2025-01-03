@@ -1,16 +1,17 @@
 import cv2
-import time
+import time,glob
 import email
 
 video = cv2.VideoCapture(1) #captures main camera with 0 and external and virtual camera with 1
 
 first_frame = None
-
+count = 1
 status_list = [0]
 
 while True:
     status = 0
     check,frame = video.read()
+
 
     grey_frame = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
 
@@ -37,6 +38,12 @@ while True:
         rectangle = cv2.rectangle(frame,(x,y),(x+w,y+h), (0,225,0))
         if rectangle.any():
             status = 1
+            cv2.imwrite(f"images/{count}.png", frame)
+            count += 1
+            all_images = glob.glob("images/*.png")
+            index = int(len(all_images)/2)
+            avg_img_w_obj = all_images[index]
+
 
     status_list.append(status)
     status_list = status_list[-2:]
